@@ -7,11 +7,11 @@ import { SITE, waLink } from '../lib/site';
 const PASOS = [
   {
     t: 'Consulta',
-    d: 'Me escribís por WhatsApp o coordinamos una reunión presencial o por videollamada. Me contás tu situación.',
+    d: 'Me escribís por WhatsApp y coordinamos una reunión presencial.',
   },
   {
     t: 'Diagnóstico y presupuesto',
-    d: 'Te explico en palabras claras qué opciones tenés, cuánto puede demorar y cuánto va a costar. Presupuesto cerrado.',
+    d: 'Te explico en palabras claras qué opciones tenés, cuánto puede demorar y cuánto va a costar.',
   },
   {
     t: 'Inicio del trámite',
@@ -26,11 +26,11 @@ const PASOS = [
 const FAQ = [
   {
     p: '¿Cuánto cuesta la consulta?',
-    r: 'Escribime por WhatsApp contándome brevemente tu caso y te informo el valor de la consulta. En los trámites trabajo con presupuesto cerrado, para que sepas desde el principio cuánto vas a pagar.',
+    r: 'Escribime por WhatsApp y te informo el valor de la consulta. En los trámites trabajo con presupuesto cerrado, para que sepas desde el principio cuánto vas a pagar.',
   },
   {
     p: '¿Atendés solo en Córdoba Capital?',
-    r: `El estudio está en ${SITE.direccion}, Córdoba. También atiendo por videollamada, lo que permite asesorar a personas de otras localidades de la provincia.`,
+    r: `El estudio está en ${SITE.direccion}, Córdoba, pero tomamos casos de toda la provincia.`,
   },
   {
     p: '¿Qué tengo que llevar a la primera consulta?',
@@ -38,7 +38,7 @@ const FAQ = [
   },
   {
     p: 'Me notificaron una medida de restricción, ¿qué hago primero?',
-    r: 'Cumplila estrictamente desde el momento en que te notifican, sin excepciones, y consultá a un abogado antes de la audiencia. En la página de violencia familiar tenés una guía de los primeros pasos.',
+    r: 'Cumplila estrictamente desde el momento en que te notifican, sin excepciones, y consultá inmediatamente a un abogado.',
     link: '/violencia-familiar',
   },
   {
@@ -51,7 +51,7 @@ const FAQ = [
 export default function Inicio() {
   return (
     <Layout
-      descripcion={`Abogado de familia en Córdoba (${SITE.matricula}). Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar. Presupuesto cerrado y atención por WhatsApp.`}
+      descripcion={`Abogado de familia en Córdoba (${SITE.matricula}). Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar.`}
     >
       <section className="hero hero-inicio">
         <div className="contenedor hero-grid">
@@ -59,8 +59,7 @@ export default function Inicio() {
             <p className="kicker">Córdoba · {SITE.matricula}</p>
             <h1>Abogado de Familia en Córdoba</h1>
             <p className="hero-bajada">
-              Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar. Te
-              explico tu situación con claridad y te digo desde el principio cuánto va a costar.
+              Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar. 
             </p>
             <div className="hero-acciones">
               <a
@@ -98,7 +97,7 @@ export default function Inicio() {
           </li>
           <li>
             <strong>Presupuesto cerrado</strong>
-            <span>desde la primera consulta</span>
+            <span>desde la primer consulta</span>
           </li>
         </ul>
       </section>
@@ -127,23 +126,21 @@ export default function Inicio() {
           <p className="kicker kicker-oscuro">Violencia familiar</p>
           <h2 className="titulo-seccion">Cuando la situación no puede esperar</h2>
           <p className="intro">
-            En violencia familiar las medidas se dictan en horas. Intervengo con la misma
-            dedicación en los dos lados del proceso.
+            En violencia familiar las medidas se dictan en horas. Si hay violencia siemrpe debe ser denunciada
           </p>
           <div className="urgente-grid">
             <div className="urgente">
               <h3>Necesito protección</h3>
               <p>
                 Exclusión del hogar, prohibición de acercamiento y de contacto, cuota y
-                cuidado provisorio de los chicos.
+                cuidado provisorio de los hijos.
               </p>
               <Link href="/violencia-familiar">Cómo pedir medidas →</Link>
             </div>
             <div className="urgente">
               <h3>Me notificaron una medida</h3>
               <p>
-                Una restricción o una exclusión del hogar no es una condena. Tenés derecho a
-                defensa y a ser oído. Lo que hagas en las primeras horas importa.
+                Una restricción o una exclusión del hogar no es una condena. Seas la persona denunciante o la denunciada, lo que hagas en las primeras horas importa.
               </p>
               <Link href="/violencia-familiar">Qué hacer primero →</Link>
             </div>
@@ -219,8 +216,7 @@ export default function Inicio() {
             <p className="kicker kicker-oscuro">Contacto</p>
             <h2 className="titulo-seccion">Hablemos de tu caso</h2>
             <p className="intro">
-              La forma más rápida es WhatsApp. Atiendo con turno previo, en el estudio o por
-              videollamada.
+              La forma más rápida de acordar una cita es mediante WhatsApp. Atiendo con turno previo en el estudio.
             </p>
             <dl className="datos">
               <div>
