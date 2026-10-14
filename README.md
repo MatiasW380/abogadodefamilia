@@ -9,4 +9,4 @@ Sitio del Ab. Oscar Matías Baronetto (MP 1-37398). Next.js (pages router), desp
 - `pages/sitemap.xml.js`: sitemap automático.
 - `public/`: favicon, imagen para compartir (og.png), robots.
 
-Si cambia el dominio, actualizar `url` en `lib/site.js`, y `public/robots.txt`.
+Si cambia el dominio, alcanza con actualizar `url` en `lib/site.js`: el sitemap, robots.txt, las URLs canónicas y los datos para Google se generan desde ahí.

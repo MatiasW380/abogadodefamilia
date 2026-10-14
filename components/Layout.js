@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import Emblema from './Emblema';
+import Redes from './Redes';
 import { SITE, waLink } from '../lib/site';
 import { SERVICIOS } from '../lib/servicios';
 
@@ -16,7 +17,11 @@ const JSON_LD = {
     'Abogado de familia en Córdoba con especialización en género y violencia familiar: cuota alimentaria, divorcio, régimen de comunicación y violencia familiar.',
   logo: `${SITE.url}/apple-touch-icon.png`,
   hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.mapsQuery)}`,
-  founder: { '@type': 'Person', name: 'Oscar Matías Baronetto', jobTitle: 'Abogado' },
+  founder: { '@id': `${SITE.url}/#abogado` },
+  employee: { '@id': `${SITE.url}/#abogado` },
+  geo: { '@type': 'GeoCoordinates', latitude: SITE.lat, longitude: SITE.lng },
+  priceRange: '$$',
+  currenciesAccepted: 'ARS',
   url: SITE.url,
   telephone: SITE.telefonoLink,
   image: `${SITE.url}/og.png`,
@@ -29,7 +34,7 @@ const JSON_LD = {
     streetAddress: SITE.direccion,
     addressLocality: SITE.ciudad,
     addressRegion: SITE.provincia,
-    postalCode: SITE.cp,
+    postalCode: SITE.cpCompleto,
     addressCountry: 'AR',
   },
   knowsAbout: [
@@ -39,6 +44,28 @@ const JSON_LD = {
     'Régimen de comunicación',
     'Violencia familiar',
   ],
+  sameAs: [SITE.instagram, SITE.facebook],
+};
+
+const PERSONA_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${SITE.url}/#abogado`,
+  name: 'Oscar Matías Baronetto',
+  honorificPrefix: 'Ab.',
+  jobTitle: 'Abogado de Familia',
+  description: `Abogado de familia en Córdoba con más de ${SITE.aniosExperiencia} años de ejercicio en Derecho de Familia, autor de libros sobre la materia y mentor de abogados del fuero de familia. Especialización en género y violencia familiar.`,
+  url: SITE.url,
+  image: `${SITE.url}/og.png`,
+  worksFor: { '@id': `${SITE.url}/#estudio` },
+  address: { '@type': 'PostalAddress', addressLocality: 'Córdoba', addressRegion: 'Córdoba', addressCountry: 'AR' },
+  knowsAbout: ['Derecho de familia', 'Cuota alimentaria', 'Violencia familiar', 'Divorcio', 'Régimen de comunicación'],
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'Matrícula profesional',
+    name: `Matrícula ${SITE.matricula}`,
+    recognizedBy: { '@type': 'Organization', name: 'Colegio de Abogados de Córdoba' },
+  },
   sameAs: [SITE.instagram, SITE.facebook],
 };
 
@@ -65,6 +92,10 @@ export default function Layout({
         <meta name="description" content={descripcion} />
         <link rel="canonical" href={canonical} />
         <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="geo.region" content="AR-X" />
+        <meta name="geo.placename" content="Córdoba, Argentina" />
+        <meta name="geo.position" content={`${SITE.lat};${SITE.lng}`} />
+        <meta name="ICBM" content={`${SITE.lat}, ${SITE.lng}`} />
         {SITE.googleVerification && (
           <meta name="google-site-verification" content={SITE.googleVerification} />
         )}
@@ -76,7 +107,7 @@ export default function Layout({
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content={`${SITE.url}/og.png`} />
         <meta name="twitter:card" content="summary_large_image" />
-        {[JSON_LD, ...schema].map((obj, i) => (
+        {[JSON_LD, PERSONA_LD, ...schema].map((obj, i) => (
           <script
             key={i}
             type="application/ld+json"
@@ -119,7 +150,7 @@ export default function Layout({
                 className={asPath === `/${s.slug}` ? 'activo' : ''}
                 onClick={() => setAbierto(false)}
               >
-                {s.titulo}
+                {s.corto || s.titulo}
               </Link>
             ))}
             <Link
@@ -132,6 +163,7 @@ export default function Layout({
             <Link href="/#contacto" onClick={() => setAbierto(false)}>
               Contacto
             </Link>
+            <Redes className="redes-nav" />
           </nav>
         </div>
       </header>
@@ -149,7 +181,7 @@ export default function Layout({
               </div>
             </div>
             <p className="pie-dato">
-              {SITE.direccion}, {SITE.ciudad}
+              {SITE.direccion}, {SITE.ciudad}, Córdoba, Argentina
               <br />
               <a href={`tel:${SITE.telefonoLink}`}>{SITE.telefonoVisible}</a>
             </p>
@@ -168,24 +200,13 @@ export default function Layout({
             </ul>
           </div>
           <div>
-            <h3 className="pie-titulo">Redes</h3>
-            <ul className="pie-lista">
-              <li>
-                <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <a href={SITE.facebook} target="_blank" rel="noopener noreferrer">
-                  Facebook
-                </a>
-              </li>
-              <li>
-                <a href={waLink()} target="_blank" rel="noopener noreferrer">
-                  WhatsApp
-                </a>
-              </li>
-            </ul>
+            <h3 className="pie-titulo">Seguime</h3>
+            <Redes className="redes-pie" conWhatsapp />
+            <p className="pie-dato pie-handle">
+              <a href={SITE.instagram} target="_blank" rel="noopener noreferrer me">
+                @abogadodefamiliacba
+              </a>
+            </p>
           </div>
         </div>
         <div className="contenedor pie-legal">

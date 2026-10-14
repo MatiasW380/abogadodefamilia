@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Layout, { IconoWhatsApp } from '../components/Layout';
 import Emblema from '../components/Emblema';
+import Redes from '../components/Redes';
 import { SERVICIOS } from '../lib/servicios';
 import { GUIAS } from '../lib/guias';
 import { SITE, waLink } from '../lib/site';
@@ -64,7 +65,7 @@ export default function Inicio() {
     <Layout
       tituloExacto="Abogado de Familia en Córdoba | Ab. Oscar Matías Baronetto"
       schema={[FAQ_SCHEMA]}
-      descripcion={`Abogado de familia en Córdoba (${SITE.matricula}). Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar.`}
+      descripcion={`Abogado de familia en Córdoba con más de ${SITE.aniosExperiencia} años de experiencia (${SITE.matricula}). Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar.`}
     >
       <section className="hero hero-inicio">
         <div className="contenedor hero-grid">
@@ -72,6 +73,7 @@ export default function Inicio() {
             <p className="kicker">Córdoba · {SITE.matricula}</p>
             <h1>Abogado de Familia en Córdoba</h1>
             <p className="hero-bajada">
+              Más de {SITE.aniosExperiencia} años dedicado al Derecho de Familia en Córdoba.
               Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar.
             </p>
             <div className="hero-acciones">
@@ -101,8 +103,12 @@ export default function Inicio() {
             <span>Colegio de Abogados de Córdoba</span>
           </li>
           <li>
-            <strong>Dedicación exclusiva</strong>
-            <span>a Derecho de Familia</span>
+            <strong>Más de {SITE.aniosExperiencia} años</strong>
+            <span>dedicados al Derecho de Familia</span>
+          </li>
+          <li>
+            <strong>Autor</strong>
+            <span>de libros de Derecho de Familia</span>
           </li>
           <li>
             <strong>Especialización</strong>
@@ -188,15 +194,21 @@ export default function Inicio() {
             <p className="kicker">Sobre mí</p>
             <h2 className="titulo-seccion claro">{SITE.nombre}</h2>
             <p>
-              Soy abogado matriculado en el Colegio de Abogados de Córdoba ({SITE.matricula}) y
-              me dedico exclusivamente al Derecho de Familia, con especialización en género y
-              violencia familiar.
+              Hace más de dos décadas que me dedico al Derecho de Familia en Córdoba. Soy abogado
+              matriculado en el Colegio de Abogados de Córdoba ({SITE.matricula}), con
+              especialización en género y violencia familiar.
+            </p>
+            <p>
+              Publiqué libros sobre Derecho de Familia y fui mentor de muchos abogados que hoy
+              ejercen en el fuero de familia de Córdoba. Esa experiencia es la que pongo al
+              servicio de cada caso.
             </p>
             <p>
               Sé que quien llega a un estudio de familia suele estar atravesando un momento
               difícil. Por eso trabajo con explicaciones simples, presupuestos claros y
               comunicación directa: siempre vas a saber en qué está tu caso.
             </p>
+            <Redes className="redes-sobre" conWhatsapp />
           </div>
         </div>
       </section>
@@ -267,9 +279,12 @@ export default function Inicio() {
               </div>
               <div>
                 <dt>Redes</dt>
-                <dd>
-                  <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">
-                    @abogadodefamiliacba
+                <dd className="dd-redes">
+                  <a href={SITE.instagram} target="_blank" rel="noopener noreferrer me">
+                    Instagram @abogadodefamiliacba
+                  </a>
+                  <a href={SITE.facebook} target="_blank" rel="noopener noreferrer me">
+                    Facebook: Abogado de Familia en Córdoba
                   </a>
                 </dd>
               </div>
