@@ -1,0 +1,268 @@
+import Link from 'next/link';
+import Layout, { IconoWhatsApp } from '../components/Layout';
+import Emblema from '../components/Emblema';
+import { SERVICIOS } from '../lib/servicios';
+import { SITE, waLink } from '../lib/site';
+
+const PASOS = [
+  {
+    t: 'Consulta',
+    d: 'Me escribís por WhatsApp o coordinamos una reunión presencial o por videollamada. Me contás tu situación.',
+  },
+  {
+    t: 'Diagnóstico y presupuesto',
+    d: 'Te explico en palabras claras qué opciones tenés, cuánto puede demorar y cuánto va a costar. Presupuesto cerrado.',
+  },
+  {
+    t: 'Inicio del trámite',
+    d: 'Preparo y presento lo necesario. Si hay urgencia, priorizo las medidas que no pueden esperar.',
+  },
+  {
+    t: 'Seguimiento',
+    d: 'Te aviso de cada novedad del expediente y te preparo antes de cada audiencia.',
+  },
+];
+
+const FAQ = [
+  {
+    p: '¿Cuánto cuesta la consulta?',
+    r: 'Escribime por WhatsApp contándome brevemente tu caso y te informo el valor de la consulta. En los trámites trabajo con presupuesto cerrado, para que sepas desde el principio cuánto vas a pagar.',
+  },
+  {
+    p: '¿Atendés solo en Córdoba Capital?',
+    r: `El estudio está en ${SITE.direccion}, Córdoba. También atiendo por videollamada, lo que permite asesorar a personas de otras localidades de la provincia.`,
+  },
+  {
+    p: '¿Qué tengo que llevar a la primera consulta?',
+    r: 'DNI, partidas de nacimiento de tus hijos e hijas si las tenés, y cualquier notificación, acuerdo o resolución judicial previa. Si no tenés todo, no importa: arrancamos igual.',
+  },
+  {
+    p: 'Me notificaron una medida de restricción, ¿qué hago primero?',
+    r: 'Cumplila estrictamente desde el momento en que te notifican, sin excepciones, y consultá a un abogado antes de la audiencia. En la página de violencia familiar tenés una guía de los primeros pasos.',
+    link: '/violencia-familiar',
+  },
+  {
+    p: '¿Puedo reclamar cuota alimentaria si el otro progenitor trabaja en negro?',
+    r: 'Sí. Sus ingresos se pueden probar por otros medios, como su nivel de vida, su actividad o sus bienes.',
+    link: '/cuota-alimentaria',
+  },
+];
+
+export default function Inicio() {
+  return (
+    <Layout
+      descripcion={`Abogado de familia en Córdoba (${SITE.matricula}). Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar. Presupuesto cerrado y atención por WhatsApp.`}
+    >
+      <section className="hero hero-inicio">
+        <div className="contenedor hero-grid">
+          <div>
+            <p className="kicker">Córdoba · {SITE.matricula}</p>
+            <h1>Abogado de Familia en Córdoba</h1>
+            <p className="hero-bajada">
+              Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar. Te
+              explico tu situación con claridad y te digo desde el principio cuánto va a costar.
+            </p>
+            <div className="hero-acciones">
+              <a
+                className="btn btn-claro"
+                href={waLink()}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <IconoWhatsApp size={20} /> Consultar por WhatsApp
+              </a>
+              <a className="btn btn-linea" href="#servicios">
+                Ver servicios
+              </a>
+            </div>
+          </div>
+          <div className="hero-sello" aria-hidden="true">
+            <Emblema size={220} />
+          </div>
+        </div>
+      </section>
+
+      <section className="credenciales" aria-label="Credenciales">
+        <ul className="contenedor credenciales-lista">
+          <li>
+            <strong>{SITE.matricula}</strong>
+            <span>Colegio de Abogados de Córdoba</span>
+          </li>
+          <li>
+            <strong>Dedicación exclusiva</strong>
+            <span>a Derecho de Familia</span>
+          </li>
+          <li>
+            <strong>Especialización</strong>
+            <span>en género y violencia familiar</span>
+          </li>
+          <li>
+            <strong>Presupuesto cerrado</strong>
+            <span>desde la primera consulta</span>
+          </li>
+        </ul>
+      </section>
+
+      <section id="servicios" className="seccion">
+        <div className="contenedor">
+          <p className="kicker kicker-oscuro">Servicios</p>
+          <h2 className="titulo-seccion">¿En qué te puedo ayudar?</h2>
+          <div className="tarjetas">
+            {SERVICIOS.map((s, i) => (
+              <Link key={s.slug} href={`/${s.slug}`} className="tarjeta">
+                <span className="tarjeta-num">0{i + 1}</span>
+                <h3>{s.titulo}</h3>
+                <p>{s.resumen}</p>
+                <span className="tarjeta-mas">
+                  Más información <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="seccion seccion-urgente">
+        <div className="contenedor">
+          <p className="kicker kicker-oscuro">Violencia familiar</p>
+          <h2 className="titulo-seccion">Cuando la situación no puede esperar</h2>
+          <p className="intro">
+            En violencia familiar las medidas se dictan en horas. Intervengo con la misma
+            dedicación en los dos lados del proceso.
+          </p>
+          <div className="urgente-grid">
+            <div className="urgente">
+              <h3>Necesito protección</h3>
+              <p>
+                Exclusión del hogar, prohibición de acercamiento y de contacto, cuota y
+                cuidado provisorio de los chicos.
+              </p>
+              <Link href="/violencia-familiar">Cómo pedir medidas →</Link>
+            </div>
+            <div className="urgente">
+              <h3>Me notificaron una medida</h3>
+              <p>
+                Una restricción o una exclusión del hogar no es una condena. Tenés derecho a
+                defensa y a ser oído. Lo que hagas en las primeras horas importa.
+              </p>
+              <Link href="/violencia-familiar">Qué hacer primero →</Link>
+            </div>
+          </div>
+          <p className="aviso aviso-centro">
+            Si estás en peligro ahora, llamá al <strong>911</strong> o a la{' '}
+            <strong>Línea 144</strong> (gratuita, 24 horas).
+          </p>
+        </div>
+      </section>
+
+      <section className="seccion">
+        <div className="contenedor">
+          <p className="kicker kicker-oscuro">Cómo trabajo</p>
+          <h2 className="titulo-seccion">Claridad desde el primer día</h2>
+          <ol className="proceso">
+            {PASOS.map((p, i) => (
+              <li key={p.t}>
+                <span className="proceso-num">{i + 1}</span>
+                <h3>{p.t}</h3>
+                <p>{p.d}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section className="seccion seccion-oscura">
+        <div className="contenedor sobre">
+          <Emblema size={120} className="sobre-emblema" />
+          <div>
+            <p className="kicker">Sobre mí</p>
+            <h2 className="titulo-seccion claro">{SITE.nombre}</h2>
+            <p>
+              Soy abogado matriculado en el Colegio de Abogados de Córdoba ({SITE.matricula}) y
+              me dedico exclusivamente al Derecho de Familia, con especialización en género y
+              violencia familiar.
+            </p>
+            <p>
+              Sé que quien llega a un estudio de familia suele estar atravesando un momento
+              difícil. Por eso trabajo con explicaciones simples, presupuestos claros y
+              comunicación directa: siempre vas a saber en qué está tu caso.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="seccion">
+        <div className="contenedor faq-wrap">
+          <div>
+            <p className="kicker kicker-oscuro">Preguntas frecuentes</p>
+            <h2 className="titulo-seccion">Lo que más me consultan</h2>
+          </div>
+          <div className="faq">
+            {FAQ.map((f) => (
+              <details key={f.p}>
+                <summary>{f.p}</summary>
+                <p>
+                  {f.r}{' '}
+                  {f.link && (
+                    <Link href={f.link}>Leer más</Link>
+                  )}
+                </p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" className="seccion seccion-contacto">
+        <div className="contenedor contacto-grid">
+          <div>
+            <p className="kicker kicker-oscuro">Contacto</p>
+            <h2 className="titulo-seccion">Hablemos de tu caso</h2>
+            <p className="intro">
+              La forma más rápida es WhatsApp. Atiendo con turno previo, en el estudio o por
+              videollamada.
+            </p>
+            <dl className="datos">
+              <div>
+                <dt>WhatsApp y teléfono</dt>
+                <dd>
+                  <a href={`tel:${SITE.telefonoLink}`}>{SITE.telefonoVisible}</a>
+                </dd>
+              </div>
+              <div>
+                <dt>Estudio</dt>
+                <dd>
+                  {SITE.direccion}, {SITE.ciudad} ({SITE.cp})
+                </dd>
+              </div>
+              <div>
+                <dt>Redes</dt>
+                <dd>
+                  <a href={SITE.instagram} target="_blank" rel="noopener noreferrer">
+                    @abogadodefamiliacba
+                  </a>
+                </dd>
+              </div>
+            </dl>
+            <a
+              className="btn btn-oscuro"
+              href={waLink()}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <IconoWhatsApp size={20} /> Escribir por WhatsApp
+            </a>
+          </div>
+          <div className="mapa">
+            <iframe
+              title={`Mapa: ${SITE.mapsQuery}`}
+              src={`https://www.google.com/maps?q=${encodeURIComponent(SITE.mapsQuery)}&output=embed`}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+}
