@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Layout, { IconoWhatsApp } from '../components/Layout';
 import Emblema from '../components/Emblema';
 import { SERVICIOS } from '../lib/servicios';
+import { GUIAS } from '../lib/guias';
 import { SITE, waLink } from '../lib/site';
 
 const PASOS = [
@@ -48,9 +49,21 @@ const FAQ = [
   },
 ];
 
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map((f) => ({
+    '@type': 'Question',
+    name: f.p,
+    acceptedAnswer: { '@type': 'Answer', text: f.r },
+  })),
+};
+
 export default function Inicio() {
   return (
     <Layout
+      tituloExacto="Abogado de Familia en Córdoba | Ab. Oscar Matías Baronetto"
+      schema={[FAQ_SCHEMA]}
       descripcion={`Abogado de familia en Córdoba (${SITE.matricula}). Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar.`}
     >
       <section className="hero hero-inicio">
@@ -59,7 +72,7 @@ export default function Inicio() {
             <p className="kicker">Córdoba · {SITE.matricula}</p>
             <h1>Abogado de Familia en Córdoba</h1>
             <p className="hero-bajada">
-              Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar. 
+              Cuota alimentaria, divorcio, régimen de comunicación y violencia familiar.
             </p>
             <div className="hero-acciones">
               <a
@@ -97,7 +110,7 @@ export default function Inicio() {
           </li>
           <li>
             <strong>Presupuesto cerrado</strong>
-            <span>desde la primer consulta</span>
+            <span>desde la primera consulta</span>
           </li>
         </ul>
       </section>
@@ -126,7 +139,7 @@ export default function Inicio() {
           <p className="kicker kicker-oscuro">Violencia familiar</p>
           <h2 className="titulo-seccion">Cuando la situación no puede esperar</h2>
           <p className="intro">
-            En violencia familiar las medidas se dictan en horas. Si hay violencia siemrpe debe ser denunciada
+            En violencia familiar las medidas se dictan en horas. Si hay violencia, siempre debe ser denunciada.
           </p>
           <div className="urgente-grid">
             <div className="urgente">
@@ -185,6 +198,27 @@ export default function Inicio() {
               comunicación directa: siempre vas a saber en qué está tu caso.
             </p>
           </div>
+        </div>
+      </section>
+
+      <section className="seccion seccion-urgente">
+        <div className="contenedor">
+          <p className="kicker kicker-oscuro">Guías</p>
+          <h2 className="titulo-seccion">Información para entender tu situación</h2>
+          <div className="tarjetas tarjetas-guias">
+            {GUIAS.slice(0, 3).map((g) => (
+              <Link key={g.slug} href={`/guias/${g.slug}`} className="tarjeta">
+                <h3>{g.titulo}</h3>
+                <p>{g.resumen}</p>
+                <span className="tarjeta-mas">
+                  Leer guía <span aria-hidden="true">→</span>
+                </span>
+              </Link>
+            ))}
+          </div>
+          <p className="ver-todas">
+            <Link href="/guias">Ver todas las guías →</Link>
+          </p>
         </div>
       </section>
 

@@ -1,13 +1,37 @@
 import Link from 'next/link';
 import Layout, { IconoWhatsApp } from './Layout';
 import { SERVICIOS } from '../lib/servicios';
-import { waLink } from '../lib/site';
+import { SITE, waLink } from '../lib/site';
+import { guiasDeServicio } from '../lib/guias';
 
 export default function PaginaServicio({ servicio }) {
   const otros = SERVICIOS.filter((s) => s.slug !== servicio.slug);
+  const guias = guiasDeServicio(servicio.slug);
+  const url = `${SITE.url}/${servicio.slug}`;
+  const schema = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: servicio.h1,
+      serviceType: servicio.titulo,
+      description: servicio.descripcionSeo,
+      url,
+      provider: { '@id': `${SITE.url}/#estudio` },
+      areaServed: { '@type': 'State', name: 'Provincia de Córdoba' },
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Inicio', item: SITE.url },
+        { '@type': 'ListItem', position: 2, name: servicio.titulo, item: url },
+      ],
+    },
+  ];
   return (
     <Layout
-      titulo={servicio.tituloSeo}
+      tituloExacto={servicio.tituloSeo}
+      schema={schema}
       descripcion={servicio.descripcionSeo}
       whatsappMensaje={servicio.whatsapp}
     >
@@ -16,7 +40,7 @@ export default function PaginaServicio({ servicio }) {
           <p className="miga">
             <Link href="/">Inicio</Link> <span aria-hidden="true">/</span> {servicio.titulo}
           </p>
-          <h1>{servicio.titulo}</h1>
+          <h1>{servicio.h1}</h1>
           <p className="hero-bajada">{servicio.bajada}</p>
           <a
             className="btn btn-claro"
@@ -66,6 +90,19 @@ export default function PaginaServicio({ servicio }) {
               <h2>{servicio.mito.titulo}</h2>
               <p>{servicio.mito.texto}</p>
             </aside>
+          )}
+
+          {guias.length > 0 && (
+            <section className="guias-servicio">
+              <h2>Guías sobre {servicio.titulo.toLowerCase()}</h2>
+              <ul>
+                {guias.map((g) => (
+                  <li key={g.slug}>
+                    <Link href={`/guias/${g.slug}`}>{g.titulo}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
           )}
         </article>
 

@@ -8,12 +8,22 @@ import { SERVICIOS } from '../lib/servicios';
 
 const JSON_LD = {
   '@context': 'https://schema.org',
-  '@type': 'Attorney',
+  '@type': ['Attorney', 'LegalService'],
+  '@id': `${SITE.url}/#estudio`,
   name: `${SITE.nombre} — Abogado de Familia`,
+  alternateName: 'Abogado de Familia en Córdoba',
+  description:
+    'Abogado de familia en Córdoba con especialización en género y violencia familiar: cuota alimentaria, divorcio, régimen de comunicación y violencia familiar.',
+  logo: `${SITE.url}/apple-touch-icon.png`,
+  hasMap: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.mapsQuery)}`,
+  founder: { '@type': 'Person', name: 'Oscar Matías Baronetto', jobTitle: 'Abogado' },
   url: SITE.url,
   telephone: SITE.telefonoLink,
   image: `${SITE.url}/og.png`,
-  areaServed: { '@type': 'City', name: 'Córdoba' },
+  areaServed: [
+    { '@type': 'City', name: 'Córdoba' },
+    { '@type': 'State', name: 'Provincia de Córdoba' },
+  ],
   address: {
     '@type': 'PostalAddress',
     streetAddress: SITE.direccion,
@@ -32,13 +42,21 @@ const JSON_LD = {
   sameAs: [SITE.instagram, SITE.facebook],
 };
 
-export default function Layout({ titulo, descripcion, children, whatsappMensaje }) {
+export default function Layout({
+  titulo,
+  tituloExacto,
+  descripcion,
+  children,
+  whatsappMensaje,
+  schema = [],
+  tipoOg = 'website',
+}) {
   const { asPath } = useRouter();
   const [abierto, setAbierto] = useState(false);
   const canonical = `${SITE.url}${asPath === '/' ? '' : asPath.split('#')[0].split('?')[0]}`;
-  const tituloCompleto = titulo
-    ? `${titulo} · ${SITE.nombre}`
-    : `Abogado de Familia en Córdoba · ${SITE.nombre}`;
+  const tituloCompleto =
+    tituloExacto ||
+    (titulo ? `${titulo} · ${SITE.nombre}` : `Abogado de Familia en Córdoba · ${SITE.nombre}`);
 
   return (
     <>
@@ -46,17 +64,25 @@ export default function Layout({ titulo, descripcion, children, whatsappMensaje 
         <title>{tituloCompleto}</title>
         <meta name="description" content={descripcion} />
         <link rel="canonical" href={canonical} />
-        <meta property="og:type" content="website" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        {SITE.googleVerification && (
+          <meta name="google-site-verification" content={SITE.googleVerification} />
+        )}
+        <meta property="og:type" content={tipoOg} />
+        <meta property="og:site_name" content={`${SITE.nombre} — Abogado de Familia`} />
         <meta property="og:locale" content="es_AR" />
         <meta property="og:title" content={tituloCompleto} />
         <meta property="og:description" content={descripcion} />
         <meta property="og:url" content={canonical} />
         <meta property="og:image" content={`${SITE.url}/og.png`} />
         <meta name="twitter:card" content="summary_large_image" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
-        />
+        {[JSON_LD, ...schema].map((obj, i) => (
+          <script
+            key={i}
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(obj) }}
+          />
+        ))}
       </Head>
 
       <a className="saltar" href="#contenido">Saltar al contenido</a>
@@ -96,6 +122,13 @@ export default function Layout({ titulo, descripcion, children, whatsappMensaje 
                 {s.titulo}
               </Link>
             ))}
+            <Link
+              href="/guias"
+              className={asPath.startsWith('/guias') ? 'activo' : ''}
+              onClick={() => setAbierto(false)}
+            >
+              Guías
+            </Link>
             <Link href="/#contacto" onClick={() => setAbierto(false)}>
               Contacto
             </Link>
@@ -129,6 +162,9 @@ export default function Layout({ titulo, descripcion, children, whatsappMensaje 
                   <Link href={`/${s.slug}`}>{s.titulo}</Link>
                 </li>
               ))}
+              <li>
+                <Link href="/guias">Guías legales</Link>
+              </li>
             </ul>
           </div>
           <div>
