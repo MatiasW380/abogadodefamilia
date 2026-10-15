@@ -9,4 +9,4 @@ Sitio del Ab. Oscar Matías Baronetto (MP 1-37398). Next.js (pages router), desp
 - `pages/sitemap.xml.js`: sitemap automático.
 - `public/`: favicon, imagen para compartir (og.png), robots.
 
-Dominio principal: abogadodefamilia.click (la dirección de Vercel y www redirigen ahí desde `next.config.js`). Si cambia el dominio, actualizar `url` en `lib/site.js` y `DOMINIO` en `next.config.js`. El sitemap, robots.txt, las URLs canónicas y los datos para Google se generan desde ahí.
+Dominio principal: www.abogadodefamilia.click. La versión sin www redirige desde la configuración de Vercel; la dirección .vercel.app, desde `next.config.js`. Si cambia el dominio, actualizar `url` en `lib/site.js` y `DOMINIO` en `next.config.js`. El sitemap, robots.txt, las URLs canónicas y los datos para Google se generan desde ahí.

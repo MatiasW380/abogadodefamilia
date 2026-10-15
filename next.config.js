@@ -1,16 +1,20 @@
 /** @type {import('next').NextConfig} */
-const DOMINIO = 'abogadodefamilia.click';
+// Dominio principal. En Vercel, abogadodefamilia.click (sin www) ya redirige acá.
+const DOMINIO = 'www.abogadodefamilia.click';
 
 module.exports = {
   reactStrictMode: true,
   async redirects() {
-    // Todas las direcciones alternativas redirigen (301 permanente) al dominio principal,
+    // La dirección vieja de Vercel redirige (permanente) al dominio principal,
     // para que Google indexe una sola versión del sitio.
-    return ['abogadodefamilia.vercel.app', `www.${DOMINIO}`].map((host) => ({
-      source: '/:path*',
-      has: [{ type: 'host', value: host }],
-      destination: `https://${DOMINIO}/:path*`,
-      permanent: true,
-    }));
+    // No agregar acá la versión sin www: Vercel ya la redirige y se generaría un bucle.
+    return [
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'abogadodefamilia.vercel.app' }],
+        destination: `https://${DOMINIO}/:path*`,
+        permanent: true,
+      },
+    ];
   },
 };
