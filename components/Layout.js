@@ -56,7 +56,7 @@ const PERSONA_LD = {
   jobTitle: 'Abogado de Familia',
   description: `Abogado de familia en Córdoba con más de ${SITE.aniosExperiencia} años de ejercicio en Derecho de Familia, autor de libros sobre la materia y mentor de abogados del fuero de familia. Especialización en género y violencia familiar.`,
   url: SITE.url,
-  image: `${SITE.url}/og.png`,
+  image: `${SITE.url}/matias-baronetto.jpg`,
   worksFor: { '@id': `${SITE.url}/#estudio` },
   address: { '@type': 'PostalAddress', addressLocality: 'Córdoba', addressRegion: 'Córdoba', addressCountry: 'AR' },
   knowsAbout: ['Derecho de familia', 'Cuota alimentaria', 'Violencia familiar', 'Divorcio', 'Régimen de comunicación'],

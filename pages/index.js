@@ -188,13 +188,20 @@ export default function Inicio() {
 
       <section className="seccion seccion-oscura">
         <div className="contenedor sobre">
-          <Emblema size={120} className="sobre-emblema" />
+          <img
+            src="/matias-baronetto.jpg"
+            alt="Ab. Oscar Matías Baronetto, abogado de familia en Córdoba"
+            width="160"
+            height="160"
+            loading="lazy"
+            className="sobre-foto"
+          />
           <div>
             <p className="kicker">Sobre mí</p>
             <h2 className="titulo-seccion claro">{SITE.nombre}</h2>
             <p>
               Hace más de dos décadas que me dedico al Derecho de Familia en Córdoba. Soy abogado
-              matriculado en el Colegio de Abogados de Córdoba ({SITE.matricula}), con
+              matriculado en el Colegio de Abogados de Córdoba (<span className="nowrap">{SITE.matricula}</span>), con
               especialización en género y violencia familiar.
             </p>
             <p>
