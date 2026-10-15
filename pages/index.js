@@ -70,7 +70,6 @@ export default function Inicio() {
       <section className="hero hero-inicio">
         <div className="contenedor hero-grid">
           <div>
-            <p className="kicker">Córdoba · {SITE.matricula}</p>
             <h1>Abogado de Familia en Córdoba</h1>
             <p className="hero-bajada">
               Más de {SITE.aniosExperiencia} años dedicado al Derecho de Familia en Córdoba.
